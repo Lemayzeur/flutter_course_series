@@ -1,32 +1,29 @@
 import 'package:flutter/material.dart';
-    
-void main() {
+
+void main(){
   runApp(const MyApp());
 }
-class MyApp extends StatelessWidget {
-  // Widjèt sa se rasin aplikasyon an
 
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+
+  const MyApp({Key? key }) : super(key: key);
 
   void fonksyonMwen(){
-    // retounen anyen
+
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return MaterialApp(
       title: 'Kwiz App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home:  Scaffold(
+      home: Scaffold(
         appBar: AppBar(
-          title: const Text("Kwiz App"),
+          title: const Text('Kwiz App')
         ),
         body: Center(
           child: Container(
             color: const Color(0xffdddddd),
-            padding: const EdgeInsets.only(left: 10.0),
+            padding: const EdgeInsets.all(10.0),
             child: Wrap(
               direction: Axis.vertical,
               children: [
@@ -36,12 +33,12 @@ class MyApp extends StatelessWidget {
                 ),
                 ElevatedButton(
                   child: const Text('Jwenn èd'),
-                  onPressed: () {}
+                  onPressed: fonksyonMwen
                 ),
-              ],
+              ]
             ),
           )
-        ),
+        )
       ),
     );
   }

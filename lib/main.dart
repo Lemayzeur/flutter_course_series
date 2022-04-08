@@ -38,7 +38,14 @@ class MyApp extends StatelessWidget {
               ]
             ),
           )
-        )
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+        floatingActionButton: FloatingActionButton(
+          child: const Text('FAB'),
+          onPressed: () {
+            print("Ou tape FAB la");
+          },
+        ),
       ),
     );
   }

@@ -29,6 +29,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Kwiz App')
       ),
+      
       body: Center(
         child: Container(
           color: const Color(0xffdddddd),
@@ -72,13 +73,17 @@ class HelpScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Seksyon èd")
       ),
-      body: Center(
-        child: OutlinedButton(
-          onPressed: (){
-            Navigator.pop(context);
-          }, 
-          child: Text("Retounen nan $fromPage")
-        )
+      body: ListView.separated(
+        itemCount: 20,
+        separatorBuilder: (BuildContext context, int index) {
+          return const Divider(
+              color: Colors.black,
+          );
+        },
+        itemBuilder: (BuildContext context, int index) => Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(child: Text("Index $index")),
+        ),
       ),
     );
   }

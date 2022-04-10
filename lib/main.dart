@@ -52,7 +52,7 @@ class HomeScreen extends StatelessWidget {
               onTap: () {
                   Navigator.pop(context);
                   Navigator.push(context,
-                    MaterialPageRoute(builder: (ctx) => const NewPageScreen()));
+                    MaterialPageRoute(builder: (ctx) => const GameScreen()));
               },
             ),
           ],
@@ -68,7 +68,10 @@ class HomeScreen extends StatelessWidget {
             children: [
               ElevatedButton(
                 child: const Text('Demare'),
-                onPressed: fonksyonMwen
+                onPressed: (){
+                  Navigator.push(context,
+                    MaterialPageRoute(builder: (ctx) => const GameScreen()));
+                }
               ),
               ElevatedButton(
                 child: const Text('Jwenn èd'),
@@ -118,17 +121,32 @@ class HelpScreen extends StatelessWidget {
   }
 }
 
-
-class NewPageScreen extends StatelessWidget {
-  const NewPageScreen({ Key? key}) : super(key: key);
+class GameScreen extends StatefulWidget {
+  const GameScreen({ Key? key }) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
+  _GameScreenState createState() => _GameScreenState();
+}
+
+class _GameScreenState extends State<GameScreen> {
+  int score = 0;
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Nouvo Paj")
+        title: Text('Skò w se ${score.toString()}'),
       ),
-      body: Container(),
+      body: Center(
+        child: ElevatedButton(
+          child: const Text("Ogmante skò"),
+          onPressed: (){
+            setState((){ 
+              score += 10; 
+            });
+          }
+        )
+      )
     );
   }
 }

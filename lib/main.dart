@@ -29,7 +29,36 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Kwiz App')
       ),
-      
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero, // m retire espas anndan yo.
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.lightBlue,
+              ),
+              child: Text('Antèt Drawer a'),
+            ),
+            ListTile(
+              title: const Text('Paj èd'),
+              onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(context,
+                    MaterialPageRoute(builder: (ctx) => const HelpScreen(fromPage: "Paj HomeScreen")));
+              },
+            ),
+            ListTile(
+              title: const Text('Nouvo paj'),
+              onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(context,
+                    MaterialPageRoute(builder: (ctx) => const NewPageScreen()));
+              },
+            ),
+          ],
+        ),
+      ),
+
       body: Center(
         child: Container(
           color: const Color(0xffdddddd),
@@ -85,6 +114,21 @@ class HelpScreen extends StatelessWidget {
           child: Center(child: Text("Index $index")),
         ),
       ),
+    );
+  }
+}
+
+
+class NewPageScreen extends StatelessWidget {
+  const NewPageScreen({ Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Nouvo Paj")
+      ),
+      body: Container(),
     );
   }
 }

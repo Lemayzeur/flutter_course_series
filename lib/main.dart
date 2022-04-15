@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kwiz_app/screens/home_screen.dart';
+import 'package:kwiz_app/screens/image_screen.dart';
 import 'package:kwiz_app/screens/login_screen.dart';
 
 void main(){
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context){
-    return const MaterialApp(
+    return MaterialApp(
       title: 'ECom App',
       home: HomeScreen()
     );

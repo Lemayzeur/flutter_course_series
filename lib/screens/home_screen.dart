@@ -11,56 +11,62 @@ class  HomeScreenState extends State<HomeScreen>  with TickerProviderStateMixin 
 
   late TabController _tabController;
   
-List<Map<String, dynamic>> categoryList = [
-  {
-    'id': 1,
-    'name': 'Electronic',
-    'products': [
-      {
-        'id': 1,
-        'name': 'Flat Screen',
-        'price': 5560,
-      },
-      {
-        'id': 2,
-        'name': 'Phone Galaxy Note10',
-        'price': 1200,
-      }
-    ]
-  },
-  {
-    'id': 2,
-    'name': 'Fruit',
-    'products': [
-      {
-        'id': 3,
-        'name': 'Apple',
-        'price': 30,
-      },
-      {
-        'id': 4,
-        'name': 'Lemon',
-        'price': 12,
-      }
-    ]
-  },
-  {
-    'id': 3,
-    'name': 'Beverage',
-    'products': [
-      {
-        'id': 5,
-        'name': 'Prestige',
-        'price': 100,
-      },
-      {
-        'id': 6,
-        'name': 'Prorade',
-        'price': 75,
-      }
-    ]
-  }
-];
+  List<Map<String, dynamic>> categoryList = [
+    {
+      'id': 1,
+      'name': 'Electronic',
+      'products': [
+        {
+          'id': 1,
+          'name': 'Flat Screen',
+          'price': 5560,
+          'url': 'https://m.media-amazon.com/images/I/61eBzQr2gmL._AC_SL1001_.jpg',
+        },
+        {
+          'id': 2,
+          'name': 'Phone Galaxy Note10',
+          'price': 1200,
+          'url': 'https://www.bhphotovideo.com/images/images1500x1500/samsung_sm_n970uzsaxaa_galaxy_note10_sm_n970u_256gb_1491312.jpg',
+        }
+      ]
+    },
+    {
+      'id': 2,
+      'name': 'Fruit',
+      'products': [
+        {
+          'id': 3,
+          'name': 'Apple',
+          'price': 30,
+          'url': 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/766/images/apple-1-1492554961.jpg',
+        },
+        {
+          'id': 4,
+          'name': 'Lemon',
+          'price': 12,
+          'url': 'https://5.imimg.com/data5/JD/FH/MY-26895711/fresh-green-lemon-500x500.jpg',
+        }
+      ]
+    },
+    {
+      'id': 3,
+      'name': 'Beverage',
+      'products': [
+        {
+          'id': 5,
+          'name': 'Prestige',
+          'price': 100,
+          'url': 'https://res-5.cloudinary.com/tristanmedia/image/private/c_limit,dpr_auto,f_auto,h_600,q_auto,w_600/yyulamrn0blruuietpzg.jpg'
+        },
+        {
+          'id': 6,
+          'name': 'Prorade',
+          'price': 75,
+          'url': 'https://s3.us-east-2.wasabisys.com/needpam-user-files/images/uploads/file-1625363381181.jpg'
+        }
+      ]
+    }
+  ];
 
 @override
 void initState() {
@@ -80,7 +86,7 @@ Widget build(BuildContext context) {
     body: TabBarView(
       controller: _tabController,
       children: categoryList.map<Widget>((el) => 
-        Container(
+        SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: el['products'].map<Widget>((pr) => 
@@ -92,11 +98,22 @@ Widget build(BuildContext context) {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Align(
                       alignment: Alignment.bottomLeft,
                       child: Text(pr['name'],
                         style: const TextStyle(fontSize: 22.0),
+                      )
+                    ),
+                    Container(
+                      height: 120,
+                      child: Image.network(
+                        pr['url'],
+                        loadingBuilder: (context, child, progress){
+                          return progress == null ? child : const CircularProgressIndicator();
+                        },
+                        fit: BoxFit.contain,
                       )
                     ),
                     const Text(

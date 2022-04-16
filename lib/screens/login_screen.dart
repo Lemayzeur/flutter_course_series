@@ -6,7 +6,6 @@ class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
-
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailInput = TextEditingController();
@@ -23,41 +22,66 @@ class _LoginScreenState extends State<LoginScreen> {
           key: _formKey,
           child: Column(
             children: <Widget>[
-              TextFormField(
-                controller: emailInput,
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: Colors.purple,
-                ),
-                decoration: const InputDecoration(
-                  hintText: "Imel / Non itilizatè"
-                ),
+              generateTextField(emailInput, hintText: "Imel / Non itilizatè"),
+              generateTextField(passwordInput, hintText: "Modpas", obscureText: true),
+              Row(
+                children: [
+                  Checkbox(
+                    value: licenceAccepted,
+                    onChanged: (value){
+                      if(value != null){
+                        setState((){
+                          licenceAccepted = value;
+                        });
+                      }
+                    },
+                    activeColor: Colors.purple,
+                  ),
+                  const Text('Tcheke pou w asepte lisans lan')
+                ],
               ),
-              TextFormField(
-                controller: passwordInput,
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: Colors.purple,
-                ),
-                decoration: const InputDecoration(
-                  hintText: "Modpas"
-                ),
-              ),
-              Checkbox(
-                value: licenceAccepted,
-                onChanged: (value){
-                  if(value != null){
-                    setState((){
-                      licenceAccepted = value;
-                    });
+              const SizedBox(height: 15.0),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  child: Text("Konekte"),
+                  onPressed: () {
+                    if(_formKey.currentState!.validate()){
+                        // voye done yo ale bay yon API, pa ekzanp.
+                        Map data = {"username": emailInput.text, "password": passwordInput.text};
+                        print(data);
+                    }else{
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Fòmilè a pa valid"))
+                      );
+                    }
                   }
-                },
-                checkColor: Colors.purple,
-              ),
+                )
+              )
             ],
           ),
         )
       )
     );
   }
+  TextFormField generateTextField(controller, {required String hintText, bool obscureText=false}){
+    return TextFormField(
+      controller: controller,
+      obscureText: obscureText,
+      style: const TextStyle(
+        fontSize: 16,
+        color: Colors.purple,
+      ),
+      decoration: InputDecoration(
+        hintText: hintText
+      ),
+      validator: (value){
+        if(value ==  null  || value.isEmpty){
+          return 'Chan sa obligatwa';
+        }
+        return null;
+      },
+    );
+  }
+
 }

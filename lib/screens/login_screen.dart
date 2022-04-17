@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kwiz_app/screens/home_screen.dart';
+import 'package:kwiz_app/services/api.dart';
+import 'package:kwiz_app/services/secure_storage.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({ Key? key }) : super(key: key);
@@ -11,6 +14,8 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailInput = TextEditingController();
   TextEditingController passwordInput = TextEditingController();
   bool licenceAccepted = false;
+
+  final SecureStorageService _storageService = SecureStorageService();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     if(_formKey.currentState!.validate()){
                         // voye done yo ale bay yon API, pa ekzanp.
                         Map data = {"username": emailInput.text, "password": passwordInput.text};
-                        print(data);
+                        submitForm(data);
                     }else{
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text("Fòmilè a pa valid"))
@@ -84,4 +89,17 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  void submitForm(data) async {
+    var response = await APIService.post('https://fakestoreapi.com/auth/login', body: data);
+    if(response != null && response['token'] != null){
+      _storageService.write('token', response['token']);
+      Navigator.push(context, MaterialPageRoute(
+        builder: (builder) => HomeScreen()
+      ));
+    }else{
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Idantifyan yo pa kòrèk"))
+      );
+    }
+  }
 }
